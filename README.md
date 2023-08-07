@@ -1,9 +1,13 @@
-App Setup Instructions
+#App Setup Instructions
 To get started with The Nudge, follow these steps:
 
 Create server/.env with the following keys:
+PORT=5000
 DB_URL=mongodb://localhost:27017/tictactense
 
+Add data to tence and verb collection manually
+tense.json
+verb.json
 
 Install dependencies for the client:
 cd client
