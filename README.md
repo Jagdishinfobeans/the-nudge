@@ -34,7 +34,7 @@ cd server
 npm start
 ```
 
-Now, The Nudge application should be up and running. You can access it through your web browser on [localhost:5000](http://localhost:5000/) and start playing Tic-Tac-Tence with your friends.
+Now, The Nudge application should be up and running. You can access it through your web browser on [localhost:3000](http://localhost:3000/) and start playing Tic-Tac-Tence with your friends.
 
 ## Contact
 If you have any questions or want to contact the project maintainers, you can reach us at jagdish.chandra@infobeans.com.
