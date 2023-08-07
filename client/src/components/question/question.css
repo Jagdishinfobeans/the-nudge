@@ -1,0 +1,29 @@
+.container {
+    /* display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    min-height: 100vh; */
+  }
+.custom-input {
+    max-width: 120px;
+    margin: 0 10px;
+    border: none;
+    border-bottom: 1px dashed black;
+    border-radius: 0px;
+}
+
+.align-item{
+    align-items: center;
+}
+
+.text-align{
+    text-align: center;
+}
+
+.error {
+    width: 100%;
+    margin-top: 0.25rem;
+    font-size: .875em;
+    color: red;
+}

@@ -1,0 +1,27 @@
+.container {
+  max-width: 500px;
+}
+.cell {
+  font-size: 1rem;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.text-white{
+  color: white;
+}
+
+.bg-green{
+  background-color: green;
+}
+
+.bg-red{
+  background-color: red;
+}
+
+.bg-gray{
+  background-color: gray;
+}

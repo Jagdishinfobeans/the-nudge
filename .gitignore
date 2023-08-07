@@ -1,0 +1,22 @@
+# Node.js and npm
+server/node_modules/
+server/npm-debug.log*
+client/node_modules/
+client/npm-debug.log*
+
+# Build files
+client/build
+client/dist
+
+# IDE and editor files
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.bak
+*.cache
+*.csproj.user
+*.log
+*.npmrc
