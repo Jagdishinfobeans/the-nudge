@@ -25,16 +25,18 @@ const GameGrid = () => {
   }, []);
 
   useEffect(() => {
-    const handleUnload = async (event) => {
+    const handleUnload = (email, sessionId) => async (event) => {
       event.preventDefault();
       axios.post("/games/exit", { email, sessionId });
       const confirmationMessage = 'Are you sure you want to leave the page?';
       event.returnValue = confirmationMessage;
     };
-    window.addEventListener("unload", handleUnload);
-
+  
+    const unloadHandler = handleUnload(email, sessionId);
+    window.addEventListener("unload", unloadHandler);
+  
     return () => {
-      window.removeEventListener("unload", handleUnload);
+      window.removeEventListener("unload", unloadHandler);
     };
   }, [email, sessionId]);
 

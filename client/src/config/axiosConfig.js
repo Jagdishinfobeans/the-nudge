@@ -13,7 +13,11 @@ instance.interceptors.request.use(
 
 instance.interceptors.response.use(
   (response) => response,
-  (error) => Promise.reject(error)
+  (error) => {
+    const { response } = error;
+    const { data } = response;
+    return Promise.reject(data.message);
+  }
 );
 
 export default instance;

@@ -10,7 +10,7 @@ const getQuestion = async (req, res) => {
   } catch (error) {
     res
       .status(500)
-      .json({ error: "An error occurred while fetching the questions." });
+      .json({ message: "An error occurred while fetching the questions." });
   }
 };
 
@@ -40,10 +40,9 @@ const saveQuestion = async (req, res) => {
       res.status(201).json({ message: "Question inserted successfully!" });
     }
   } catch (error) {
-    console.log("error: ", error);
     res
       .status(500)
-      .json({ error: "An error occurred while inserting the question." });
+      .json({ message: "An error occurred while inserting the question." });
   }
 };
 
@@ -52,8 +51,7 @@ const getTense = async (req, res) => {
     const tenses = await Tense.find();
     res.json(tenses);
   } catch (error) {
-    console.log("error: ", error);
-    res.status(500).json({ error: "An error occurred while fetching tenses." });
+    res.status(500).json({ message: "An error occurred while fetching tenses." });
   }
 };
 
@@ -64,7 +62,7 @@ const getVerbs = async (req, res) => {
   } catch (error) {
     res
       .status(500)
-      .json({ error: "An error occurred while fetching base verbs." });
+      .json({ message: "An error occurred while fetching base verbs." });
   }
 };
 

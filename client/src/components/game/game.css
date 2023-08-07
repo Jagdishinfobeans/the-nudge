@@ -10,18 +10,22 @@
   text-align: center;
 }
 
-.text-white{
+.text-white {
   color: white;
 }
 
-.bg-green{
+.bg-green {
   background-color: green;
 }
 
-.bg-red{
+.bg-red {
   background-color: red;
 }
 
-.bg-gray{
+.bg-gray {
   background-color: gray;
+}
+
+.cursor-pointer {
+  cursor: pointer;
 }

@@ -12,25 +12,31 @@ const getRandomVerb = async () => {
 };
 
 const startGame = async (req, res) => {
-  const { email, verb: oldVerb } = req.body;
-  const sessionId = await generateSessionId();
+  try {
+    const { email, verb: oldVerb } = req.body;
+    const sessionId = await generateSessionId();
 
-  const verb = oldVerb ? oldVerb : await getRandomVerb();
+    const verb = oldVerb ? oldVerb : await getRandomVerb();
 
-  const UserAttemptData = {
-    email,
-    sessionId,
-    verbId: verb._id,
-    successfullyCompleted: "",
-    abandoned: "",
-    attempts: [
-      [{ uniqueRowID: "0" }, { uniqueRowID: "0" }, { uniqueRowID: "0" }],
-      [{ uniqueRowID: "1" }, { uniqueRowID: "1" }, { uniqueRowID: "1" }],
-      [{ uniqueRowID: "2" }, { uniqueRowID: "2" }, { uniqueRowID: "2" }],
-    ],
-  };
-  await UserAttempt.insertMany([UserAttemptData]);
-  res.json({ email, sessionId, verb: verb });
+    const UserAttemptData = {
+      email,
+      sessionId,
+      verbId: verb._id,
+      successfullyCompleted: "",
+      abandoned: "",
+      attempts: [
+        [{ uniqueRowID: "0" }, { uniqueRowID: "0" }, { uniqueRowID: "0" }],
+        [{ uniqueRowID: "1" }, { uniqueRowID: "1" }, { uniqueRowID: "1" }],
+        [{ uniqueRowID: "2" }, { uniqueRowID: "2" }, { uniqueRowID: "2" }],
+      ],
+    };
+    await UserAttempt.insertMany([UserAttemptData]);
+    res.json({ email, sessionId, verb: verb });
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "An error occurred while starting game." });
+  }
 };
 
 const getQuestion = async (req, res) => {
@@ -44,14 +50,13 @@ const getQuestion = async (req, res) => {
       { sentence: 1, _id: 1 }
     );
     if (!question) {
-      return res.status(404).json({ error: "Question not found." });
+      return res.status(404).json({ message: "Question not found for selected verb, please contact admin." });
     }
     res.json(question);
   } catch (error) {
-    console.log("error: ", error);
     res
       .status(500)
-      .json({ error: "An error occurred while fetching question." });
+      .json({ message: "An error occurred while fetching question." });
   }
 };
 
@@ -73,7 +78,7 @@ const submitQuestion = async (req, res) => {
     });
 
     if (!question) {
-      return res.status(404).json({ error: "Question not found." });
+      return res.status(404).json({ message: "Question not found for selected verb, please contact admin." });
     }
 
     const isCorrectAnswer =
@@ -113,7 +118,7 @@ const submitQuestion = async (req, res) => {
       correctAnswer,
     });
   } catch (error) {
-    res.status(500).json({ error: "An error occurred while submit." });
+    res.status(500).json({ message: "An error occurred while submit." });
   }
 };
 
@@ -123,7 +128,7 @@ const getUserAttempt = async (req, res) => {
     const userAttempt = await UserAttempt.findOne({ email, sessionId });
 
     if (!userAttempt) {
-      return res.status(404).json({ error: "User attempt data not found." });
+      return res.status(404).json({ message: "User attempt data not found." });
     }
 
     const win = userAttempt.successfullyCompleted === "Y";
@@ -132,7 +137,7 @@ const getUserAttempt = async (req, res) => {
   } catch (error) {
     res
       .status(500)
-      .json({ error: "An error occurred while fetching user attempt data." });
+      .json({ message: "An error occurred while fetching user attempt data." });
   }
 };
 
@@ -156,7 +161,7 @@ const exitGame = async (req, res) => {
     const userAttempt = await UserAttempt.findOne({ email, sessionId });
 
     if (!userAttempt) {
-      return res.status(404).json({ error: "User attempt data not found." });
+      return res.status(404).json({ message: "User attempt data not found." });
     }
     if (userAttempt.successfullyCompleted === "") {
       userAttempt.abandoned = "Y";
@@ -167,7 +172,7 @@ const exitGame = async (req, res) => {
   } catch (error) {
     res
       .status(500)
-      .json({ error: "An error occurred while fetching user attempt data." });
+      .json({ message: "An error occurred while fetching user attempt data." });
   }
 };
 

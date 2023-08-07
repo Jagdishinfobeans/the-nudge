@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
+import { toast } from "react-toastify";
 import CheckMarkOrCross from "../game/CheckMarkOrCross";
 import axios from "../../config/axiosConfig";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -30,7 +31,7 @@ function QuestionView({ state }) {
 
   useEffect(() => {
     inputRef.current.focus();
-    fetchSentence();
+    fetchQuestion();
   }, []);
 
   const handleChange = (event) => {
@@ -58,7 +59,7 @@ function QuestionView({ state }) {
       setCorrectAnswer(data.correctAnswer);
       setIsSubmited(true);
     } catch (error) {
-      console.log("error: ", error);
+      toast.error(error);
     }
   };
 
@@ -71,7 +72,7 @@ function QuestionView({ state }) {
     navigate("/game");
   };
 
-  const fetchSentence = async () => {
+  const fetchQuestion = async () => {
     try {
       const response = await axios.get("/games/question", {
         params: {
@@ -87,7 +88,7 @@ function QuestionView({ state }) {
         );
       }
     } catch (error) {
-      console.log("error: ", error);
+      toast.error(error);
     }
   };
 
