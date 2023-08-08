@@ -33,9 +33,7 @@ const startGame = async (req, res) => {
     await UserAttempt.insertMany([UserAttemptData]);
     res.json({ email, sessionId, verb: verb });
   } catch (error) {
-    res
-      .status(500)
-      .json({ message: "An error occurred while starting game." });
+    res.status(500).json({ message: "An error occurred while starting game." });
   }
 };
 
@@ -50,7 +48,12 @@ const getQuestion = async (req, res) => {
       { sentence: 1, _id: 1 }
     );
     if (!question) {
-      return res.status(404).json({ message: "Question not found for selected verb, please contact admin." });
+      return res
+        .status(404)
+        .json({
+          message:
+            "Question not found for selected verb, please contact admin.",
+        });
     }
     res.json(question);
   } catch (error) {
@@ -78,7 +81,12 @@ const submitQuestion = async (req, res) => {
     });
 
     if (!question) {
-      return res.status(404).json({ message: "Question not found for selected verb, please contact admin." });
+      return res
+        .status(404)
+        .json({
+          message:
+            "Question not found for selected verb, please contact admin.",
+        });
     }
 
     const isCorrectAnswer =
@@ -153,16 +161,10 @@ const getVerb = async (req, res) => {
 };
 
 const exitGame = async (req, res) => {
-  console.log("game exited.");
-
   try {
-    const { email, sessionId } = req.query;
-    console.log("email, sessionId: ", email, sessionId);
+    const { email, sessionId } = req.body;
     const userAttempt = await UserAttempt.findOne({ email, sessionId });
 
-    if (!userAttempt) {
-      return res.status(404).json({ message: "User attempt data not found." });
-    }
     if (userAttempt.successfullyCompleted === "") {
       userAttempt.abandoned = "Y";
       await userAttempt.save();
